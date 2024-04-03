@@ -15,6 +15,12 @@ JOIN personne ON realisateur.id_personne = personne.id_personne
 
 
 b. Liste des films dont la durée excède 2h15 classés par durée (du + long au + court)
+SELECT film.titre,
+CONCAT (FLOOR(film.duree / 60), 'h', LPAD (film.duree % 60, 2, '0'), 'm') AS duree
+FROM film
+WHERE film.duree > 135
+ORDER BY film.duree;
+
 
 c. Liste des films d’un réalisateur (en précisant l’année de sortie) 
 
