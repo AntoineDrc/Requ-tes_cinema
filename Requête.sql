@@ -23,6 +23,11 @@ ORDER BY film.duree;
 
 
 c. Liste des films d’un réalisateur (en précisant l’année de sortie) 
+SELECT film.titre, film.anneeSortie, personne.prenom AS prenomRealisateur, personne.nom AS prenomRealisateur
+FROM film
+JOIN realisateur ON film.id_realisateur = realisateur.id_realisateur
+JOIN personne ON realisateur.id_personne = personne.id_personne
+
 
 d. Nombre de films par genre (classés dans l’ordre décroissant)
 
