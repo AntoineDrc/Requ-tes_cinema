@@ -50,6 +50,15 @@ ORDER BY realisateur.id_realisateur DESC
 
 
 f. Casting d’un film en particulier (id_film) : nom, prénom des acteurs + sexe
+SELECT film.id_film, film.titre, 
+-- la fonction GROUP_CONCAT concatène les résultats et CONCAT pour fusionner les prénom, nom et sexe avec du texte explicatif
+GROUP_CONCAT(CONCAT(personne.prenom, ' ', personne.nom, ', sexe : ', personne.sexe) SEPARATOR ' / ') AS acteurs
+FROM film 
+JOIN jouer ON film.id_film = jouer.id_film
+JOIN acteur ON jouer.id_acteur = acteur.id_acteur
+JOIN personne ON acteur.id_personne = personne.id_personne
+GROUP BY film.id_film;
+
 
 g. Films tournés par un acteur en particulier (id_acteur) avec leur rôle et l’année de 
 sortie (du film le plus récent au plus ancien)
