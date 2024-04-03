@@ -30,6 +30,14 @@ JOIN personne ON realisateur.id_personne = personne.id_personne
 
 
 d. Nombre de films par genre (classés dans l’ordre décroissant)
+SELECT categorie.genre,
+COUNT(film.id_film) AS nbFilms
+FROM categorie 
+JOIN appartenir ON categorie.id_categorie = appartenir.id_categorie
+JOIN film ON appartenir.id_film = film.id_film
+GROUP BY categorie.genre
+ORDER BY categorie.genre DESC  
+
 
 e. Nombre de films par réalisateur (classés dans l’ordre décroissant)
 
