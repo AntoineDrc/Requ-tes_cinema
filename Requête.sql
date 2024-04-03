@@ -40,6 +40,14 @@ ORDER BY categorie.genre DESC
 
 
 e. Nombre de films par réalisateur (classés dans l’ordre décroissant)
+SELECT personne.prenom AS prenomRealisateur, personne.nom AS nomRealisateur,
+COUNT(film.id_film) AS nbFilms
+FROM film
+JOIN realisateur ON film.id_realisateur = realisateur.id_realisateur
+JOIN personne ON realisateur.id_personne = personne.id_personne
+GROUP BY realisateur.id_realisateur
+ORDER BY realisateur.id_realisateur DESC 
+
 
 f. Casting d’un film en particulier (id_film) : nom, prénom des acteurs + sexe
 
