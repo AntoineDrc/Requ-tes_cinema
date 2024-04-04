@@ -98,5 +98,33 @@ JOIN acteur ON personne.id_personne = acteur.id_personne
 WHERE acteur.id_acteur
 
 k. Liste des acteurs ayant plus de 50 ans (âge révolu et non révolu)
+SELECT personne.*,
+-- TIMESTAMPDIFF calcul la différence entre deux dates en prenant 3 arguments : Unité (year, month etc), date de début, date de fin, 
+TIMESTAMPDIFF(YEAR, personne.dateNaissance, CURDATE()) AS age -- On utilise la fonction une première fois dans le select car on a beson de créér une nouvelle colonne "age"
+FROM personne
+JOIN acteur ON personne.id_personne = acteur.id_personne
+WHERE TIMESTAMPDIFF(YEAR, personne.dateNaissance, CURDATE()) >= 50 -- Puis une deuxième fois dans le where pour filter les personnes au dela de 50 "ans"
+AND acteur.id_acteur 
+
 
 l. Acteurs ayant joué dans 3 films ou plus
+SELECT personne.prenom, personne.nom,
+COUNT(id_film) AS nbFilms
+FROM personne 
+JOIN acteur ON personne.id_personne = acteur.id_personne 
+JOIN jouer ON acteur.id_acteur = jouer.id_acteur
+GROUP BY personne.id_personne
+HAVING COUNT(jouer.id_film) > 3
+
+-- Pourquoi utiliser HAVING plutôt que WHERE ?
+-- 1. La clause WHERE s'applique avant l'agrégation des données. Elle est utilisée pour filtrer les lignes individuelles 
+--    avant que les opérations de GROUP BY ne soient effectuées. Par exemple, WHERE serait utilisé pour filtrer les acteurs 
+--    d'un certain pays ou ceux ayant une date de naissance après une certaine année.
+--
+-- 2. La clause HAVING s'applique après l'agrégation des données. Elle est donc utilisée pour filtrer les résultats basés sur 
+--    les conditions qui impliquent des fonctions d'agrégation, comme COUNT, SUM, AVG, etc. Dans ce cas, HAVING est utilisée 
+--    pour filtrer les acteurs basés sur le nombre total de films dans lesquels ils ont joué, une information qui n'est 
+--    disponible qu'après l'agrégation des données par acteur.
+--
+-- En résumé, HAVING est nécessaire ici parce que nous filtrons les acteurs sur une condition qui dépend du résultat d'une 
+-- fonction d'agrégation (le décompte des films), ce qui n'est pas possible avec la clause WHERE.
