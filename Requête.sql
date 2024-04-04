@@ -81,6 +81,12 @@ WHERE acteur.id_personne = realisateur.id_personne
 
 
 i. Liste des films qui ont moins de 5 ans (classés du plus récent au plus ancien)
+SELECT *
+FROM film 
+-- DATE_SUB soustrait une période de temps à une date spécifique.
+WHERE film.anneeSortie >= DATE_SUB(CURDATE(), INTERVAL 5 YEAR) -- CURDATE() pour obtient la date actuelle / INTERVAL "5 YEAR" : l'intervalle de temps à soustraire
+ORDER BY film.anneeSortie DESC 
+
 
 j. Nombre d’hommes et de femmes parmi les acteurs
 
