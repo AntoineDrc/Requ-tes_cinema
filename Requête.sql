@@ -89,6 +89,13 @@ ORDER BY film.anneeSortie DESC
 
 
 j. Nombre d’hommes et de femmes parmi les acteurs
+SELECT 
+-- CASE (dans le cas ou) vérifie si le sexe est 'm'. Si oui, THEN (alors) compte 1, ELSE (sinon) compte 0
+SUM(CASE WHEN sexe = 'm' THEN 1 ELSE 0 END) AS nbHommesActeur, -- SUM additionne ensuite tous ces 1 pour donner le nombre total d'hommes acteurs
+SUM(CASE WHEN sexe = 'f' THEN 1 ELSE 0 END) AS nbFemmes
+FROM personne 
+JOIN acteur ON personne.id_personne = acteur.id_personne 
+WHERE acteur.id_acteur
 
 k. Liste des acteurs ayant plus de 50 ans (âge révolu et non révolu)
 
