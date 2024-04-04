@@ -73,6 +73,12 @@ ORDER BY film.anneeSortie DESC
 
 
 h. Liste des personnes qui sont à la fois acteurs et réalisateurs
+SELECT personne.nom, personne.prenom
+FROM personne
+JOIN acteur ON personne.id_personne = acteur.id_personne
+JOIN realisateur ON personne.id_personne = realisateur.id_personne
+WHERE acteur.id_personne = realisateur.id_personne 
+
 
 i. Liste des films qui ont moins de 5 ans (classés du plus récent au plus ancien)
 
