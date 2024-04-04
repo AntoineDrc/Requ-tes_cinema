@@ -62,6 +62,15 @@ GROUP BY film.id_film;
 
 g. Films tournés par un acteur en particulier (id_acteur) avec leur rôle et l’année de 
 sortie (du film le plus récent au plus ancien)
+SELECT film.titre, film.anneeSortie, acteur.id_acteur, personne.prenom AS prenomActeur, personne.nom AS nomActeur, role.nomPersonnage AS role
+FROM film 
+JOIN jouer ON film.id_film = jouer.id_film 
+JOIN role ON jouer.id_role = role.id_role 
+JOIN acteur ON jouer.id_acteur = acteur.id_acteur 
+JOIN personne ON acteur.id_personne = personne.id_personne
+WHERE acteur.id_acteur = 1
+ORDER BY film.anneeSortie DESC 
+
 
 h. Liste des personnes qui sont à la fois acteurs et réalisateurs
 
